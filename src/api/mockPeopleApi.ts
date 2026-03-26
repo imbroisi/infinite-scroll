@@ -1,6 +1,3 @@
-const TOTAL = 100
-const PAGE_SIZE = 7
-
 // 100 nomes (sem sobrenome), prontos pra serem retornados em “páginas”.
 const NAMES: string[] = [
   'Ana',
@@ -111,18 +108,22 @@ function delay(ms: number) {
   })
 }
 
-export async function fetchPeopleBatch(offset: number): Promise<string[]> {
-  // contrato: sempre 7 por chamada, mas respeita o final.
-  const limit = PAGE_SIZE
+export async function fetchPeopleBatch(
+  offset: number,
+  pageSize: number,
+  total: number,
+): Promise<string[]> {
+  const limit = pageSize
+  const safeTotal = Math.max(0, Math.min(total, NAMES.length))
 
   await delay(2000)
 
-  if (offset >= TOTAL) return []
+  if (offset >= safeTotal) return []
 
   return NAMES.slice(offset, offset + limit)
 }
 
 export function getPeopleTotal() {
-  return TOTAL
+  return NAMES.length
 }
 
