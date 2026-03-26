@@ -18,9 +18,11 @@ function App() {
         fetchPageItems={(pageIndex: number) =>
           fetchPeopleBatch(pageIndex * 7, 7, 100)
         }
+        firstSkeletonSize={{ width: 362, height: 180 }}
+        skeletonSize={{ width: 330, height: 106 }}
       />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

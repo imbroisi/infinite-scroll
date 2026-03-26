@@ -50,25 +50,6 @@
   width: 100%;
 }
 
-.groupLabel {
-  font-size: 22px;
-  font-weight: 900;
-  color: #0b0b10;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
-  pointer-events: none;
-}
-
-.ultimoLabel {
-  font-size: 14px;
-  font-weight: 900;
-  color: #0b0b10;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-  pointer-events: none;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.55);
-}
-
 .debug {
   position: fixed;
   top: 12px;
