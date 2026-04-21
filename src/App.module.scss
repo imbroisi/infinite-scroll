@@ -11,22 +11,36 @@
   padding: 28px 16px 40px;
 }
 
-.header {
-  max-width: 1100px;
-  margin: 0 auto 18px;
+.shell {
+  box-sizing: border-box;
+  position: fixed;
+  top: 28px;
+  left: 50%;
+  z-index: 1;
+  transform: translateX(-50%);
+  height: 700px;
+  padding: 12px;
+  border: 1px solid orange;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: fit-content;
+  min-width: 500px;
+  max-width: calc(100vw - 32px);
 }
 
-.title {
-  font-size: 26px;
-  line-height: 1.2;
-  margin: 0;
-  font-weight: 800;
-  letter-spacing: 0.2px;
+/**
+ * Rolagem só aqui: assim o conteúdo não “invade” o padding nem a zona acima da
+ * barra sticky da shell (efeito do overflow no pai com padding).
+ */
+.shellScroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overflow-anchor: none;
+  isolation: isolate;
+  background: #121218;
 }
-
-.subtitle {
-  margin: 8px 0 0;
-  opacity: 0.85;
-  font-size: 14px;
-}
-

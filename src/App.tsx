@@ -1,28 +1,19 @@
-import InfiniteScroll from './components/InfiniteScroll/InfiniteScroll.tsx'
+import TabbedAccordion from './components/TabbedAccordion/TabbedAccordion.tsx'
 import styles from './App.module.scss'
-import { fetchPeopleBatch } from './api/mockPeopleApi'
+import { useRef } from 'react'
 
 function App() {
+  const shellScrollRef = useRef<HTMLDivElement>(null)
+
   return (
     <div className={styles.page}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>Infinite Scroll</h1>
-        <p className={styles.subtitle}>
-          PHASE 2: placeholders in pages of `itemsPerPage` + API requests in a queue (2s per call).
-        </p>
-      </header>
-
-      <InfiniteScroll
-        totalItems={100}
-        itemsPerPage={7}
-        fetchPageItems={(pageIndex: number) =>
-          fetchPeopleBatch(pageIndex * 7, 7, 100)
-        }
-        firstSkeletonSize={{ width: 362, height: 180 }}
-        skeletonSize={{ width: 330, height: 106 }}
-      />
+      <div className={styles.shell}>
+        <div ref={shellScrollRef} className={styles.shellScroll}>
+          <TabbedAccordion scrollContainerRef={shellScrollRef} />
+        </div>
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
