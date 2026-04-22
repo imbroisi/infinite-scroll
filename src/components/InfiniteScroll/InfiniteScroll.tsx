@@ -29,8 +29,8 @@ export default function InfiniteScroll({
   return (
     <div className={styles.wrapper}>
       <div className={styles.debug} aria-hidden="true">
-        Renderizados: {loadedCount}
-        <div>Ativações: {pageActivations}</div>
+        Rendered: {loadedCount}
+        <div>Activations: {pageActivations}</div>
       </div>
       <ul className={styles.list}>
         {Array.from({ length: loadedCount }).map((_, idx) => {

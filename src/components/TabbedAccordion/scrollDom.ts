@@ -1,6 +1,6 @@
 /**
- * Distância do topo do contentor rolável até ao topo de `el`, pela cadeia `offsetParent`
- * (vale para sticky: usa posição de layout, não a pintada).
+ * Distance from the top of the scroll container to the top of `el` along the `offsetParent` chain
+ * (works with sticky: uses layout position, not painted position).
  */
 export function offsetTopWithinScrollRoot(
   scrollRoot: HTMLElement,
@@ -15,11 +15,24 @@ export function offsetTopWithinScrollRoot(
   return node === scrollRoot ? acc : null;
 }
 
-function easeOutQuad(t: number): number {
+/** Quadratic ease-out used by {@link smoothScrollElementTo}. */
+export function easeOutQuad(t: number): number {
   return 1 - (1 - t) * (1 - t);
 }
 
-/** Anima `element.scrollTop` até `targetTop` em `durationMs` (ease-out quadrático). */
+/** Scroll position applied at the first-tab intercept (px). */
+export const SCROLL_TOP_FIRST_TAB_INTERCEPT_PX = 0;
+
+/** Duration of programmatic scroll (first-tab intercept / second tab stacked). */
+export const SCROLL_PROGRAMMATIC_DURATION_MS = 200;
+
+/**
+ * If `|scrollTop − target|` is within this value (px), the scroll is considered aligned:
+ * clicking the stacked second tab toggles expand/collapse instead of repeating the scroll.
+ */
+export const SCROLL_AT_TARGET_TOLERANCE_PX = 8;
+
+/** Animates `element.scrollTop` to `targetTop` over `durationMs` (quadratic ease-out). */
 export function smoothScrollElementTo(
   element: HTMLElement,
   targetTop: number,
