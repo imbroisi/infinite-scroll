@@ -46,7 +46,7 @@ export default function StickyTabSection({
   setSummaryRef,
   setPanelWrapRef,
 }: StickyTabSectionProps) {
-  const names =
+  const items =
     tab.maxItems != null ? tab.row.slice(0, tab.maxItems) : [...tab.row];
 
   return (
@@ -81,9 +81,13 @@ export default function StickyTabSection({
             sx={tabPanelRegionSx}
           >
             <List dense disablePadding>
-              {names.map((name) => (
-                <ListItem key={name} disableGutters sx={tabListItemSx}>
-                  <ListItemText primary={name} />
+              {items.map((item, itemIndex) => (
+                <ListItem
+                  key={itemIndex}
+                  disableGutters
+                  sx={tabListItemSx}
+                >
+                  <ListItemText primary={item} />
                 </ListItem>
               ))}
             </List>

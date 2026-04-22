@@ -1,8 +1,9 @@
-import type { RefObject } from "react";
+import type { ReactNode, RefObject } from "react";
 
 export type TabConfig = {
   label: string;
-  row: readonly string[];
+  /** Panel rows: text, markup, or any React nodes. Keys use index if you need stable identity across reordering, extend the data model. */
+  row: readonly ReactNode[];
   /** When set, only the first N row items are shown. */
   maxItems?: number;
 };

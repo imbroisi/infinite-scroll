@@ -1,35 +1,38 @@
+import Box from "@mui/material/Box";
+import type { ReactNode } from "react";
+
 import type { TabConfig } from "./tabbedAccordion.types";
 
+/** Tab 1: small circles (`ReactNode` rows) instead of plain text. */
+export const DEMO_TAB1_ROW: readonly ReactNode[] = Array.from(
+  { length: 20 },
+  (_, i) => {
+    const hue = (i * 37) % 360;
+    return (
+      <Box
+        key={i}
+        component="span"
+        aria-hidden
+        title={`Demo item ${i + 1}`}
+        sx={{
+          display: "inline-block",
+          width: 14,
+          height: 14,
+          borderRadius: "50%",
+          bgcolor: `hsl(${hue} 65% 52%)`,
+          mr: 1,
+          mb: 0.25,
+          verticalAlign: "middle",
+        }}
+      />
+    );
+  },
+);
+
 /**
- * Demo names for development. Replace with `tabs` from your API or app state in production.
+ * Demo names for tabs 2–3. Replace with `tabs` from your API or app state in production.
  */
-export const DEMO_TAB_GROUPS: readonly [
-  readonly string[],
-  readonly string[],
-  readonly string[],
-] = [
-  [
-    "Anna Mitchell",
-    "Thomas Bennett",
-    "Iris Castellan",
-    "Otto Duarte",
-    "Louise Evans",
-    "Henry Farrell",
-    "Amelia Gordon",
-    "Dwight Harrison",
-    "Constance Ingalls",
-    "Simon Jordan",
-    "Rafael Keller",
-    "Eleanor Matos",
-    "Martin Noble",
-    "Olivia Ornelas",
-    "Peter Paulson",
-    "Kayla Ramos",
-    "Rodrigo Silver",
-    "Susan Tavares",
-    "Telmo Umbelino",
-    "Uri Vilalta",
-  ],
+export const DEMO_TAB_GROUPS: readonly [readonly string[], readonly string[]] = [
   [
     "Beatrice Lemos",
     "Michael Macedo",
@@ -78,7 +81,7 @@ export const DEMO_TAB_GROUPS: readonly [
 
 /** Demo config with three tabs (labels + rows); use as reference or pass via `tabs`. */
 export const DEFAULT_TAB_CONFIG: TabConfig[] = [
-  { label: "Tab 1", row: DEMO_TAB_GROUPS[0], maxItems: 20 },
-  { label: "Tab 2", row: DEMO_TAB_GROUPS[1], maxItems: 15 },
-  { label: "Tab 3", row: DEMO_TAB_GROUPS[2] },
+  { label: "Tab 1", row: DEMO_TAB1_ROW, maxItems: 20 },
+  { label: "Tab 2", row: DEMO_TAB_GROUPS[0], maxItems: 15 },
+  { label: "Tab 3", row: DEMO_TAB_GROUPS[1] },
 ];

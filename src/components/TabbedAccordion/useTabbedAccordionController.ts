@@ -28,6 +28,25 @@ import {
 } from "./stickyMeasure";
 import { buildInitialStickyTopPx } from "./stickyLayout";
 
+/**
+ * Scroll layout contract (TabbedAccordion)
+ *
+ * **Scroll root** — The element pointed to by `scrollContainerRef` from the parent (e.g. the
+ * outer column with `overflow: auto|scroll`, often `.shellScroll`). All programmatic scrolling
+ * (`smoothScrollElementTo`, intercept scroll) uses this node’s `scrollTop`. Offset math for the
+ * second tab header (`resolveTotalPxToSecondSummary`, `offsetTopWithinScrollRoot`) assumes this
+ * same element is the scrollable ancestor relevant to layout.
+ *
+ * **When measurement runs** — After mount via `useLayoutEffect`: an initial `measure()` once refs
+ * are attached, then again whenever a `ResizeObserver` fires on any summary `<button>` or panel
+ * wrapper; callbacks are coalesced through `requestAnimationFrame` to avoid observer→layout loops.
+ *
+ * **`secondStickyTabScrollTopPxRef`** — Cached target `scrollTop` (px) on the scroll root for
+ * aligning the **second** tab header when tabs 1 and 2 are treated as “stacked”. Computed as
+ * offset to the second summary minus the second header height and section margin (see
+ * `secondStickyTabScrollTopPxFromLayout`). Only consumed when clicking tab 2 under that stacked
+ * interaction; set to `0` if there are fewer than two tabs.
+ */
 type UseTabbedAccordionControllerArgs = {
   scrollContainerRef: TabbedAccordionProps["scrollContainerRef"];
   tabs: readonly TabConfig[];
@@ -50,6 +69,7 @@ export function useTabbedAccordionController({
     buildInitialStickyTopPx(tabs.length),
   );
 
+  /** See module doc: target `scrollTop` on `scrollContainerRef` for second-tab stacked alignment. */
   const secondStickyTabScrollTopPxRef = useRef(0);
 
   /** Coalesce ResizeObserver work in rAF to avoid observer → setState → layout loops. */
